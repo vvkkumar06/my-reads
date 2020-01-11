@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import HeaderComponent from './header/header.component';
+import BookListComponent from './books/book-list/books.component';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      forceClose: false
+    }
+  }
+  closeOtherBooksMenu = () => {
+    this.setState({
+      forceClose: true
+    })
+  }
+  render() {
+    const {forceClose} = this.state;
+    return (
+      <div className="app">
+        <HeaderComponent />
+        <main>
+          <BookListComponent forceClose={forceClose} closeOtherBooksMenu= {this.closeOtherBooksMenu} title="Currently Reading"/>
+          <BookListComponent forceClose={forceClose} closeOtherBooksMenu= {this.closeOtherBooksMenu} title="Want To Read"/>
+          <BookListComponent forceClose={forceClose} closeOtherBooksMenu= {this.closeOtherBooksMenu} title="Read"/>
+        </main>
+      </div>
+    );
+  }
 }
 
 export default App;
